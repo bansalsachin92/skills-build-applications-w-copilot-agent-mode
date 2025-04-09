@@ -6,6 +6,7 @@ class Command(BaseCommand):
     help = 'Populate the database with test data'
 
     def handle(self, *args, **kwargs):
+        print("populate_db command is being executed")
         # Populate users
         for user_data in test_users:
             User.objects.get_or_create(
@@ -27,7 +28,7 @@ class Command(BaseCommand):
             Activity.objects.get_or_create(
                 user=user,
                 activity_type=activity_data['activity_type'],
-                duration=activity_data['duration']
+                defaults={'duration': activity_data['duration']}
             )
 
         # Populate leaderboard
